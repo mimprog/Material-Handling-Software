@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.container-fluid {
+  background-color: white;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  height: 100%;
+}
+
+div.dataTables_paginate {
+  display: none;
+}
+
+div.dataTables_wrapper {
+  line-height: 13px;
+  /* border: 1px solid #4a69bd; */
+  height: 70vh;
+}
+
+div.dataTables_scroll {
+  height: 70vh;
+}
+
+div.dataTables_scrollBody {
+  height: 55vh !important;
+}
+
+header {
+  height: 50px;
+  background-color: #4a69bd;
+  text-align: center;
+  color: white;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
+
+#review_material_table th {
+  font-size: smaller;
+  font-weight: 300;
+}
+
+.card {
+  width: 50%;
+  height: 89vh;
+  margin: auto;
+  border: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.card .options {
+  height: 10vh;
+  border: 1px solid black;
+}
+
+.card-body h6 {
+  margin-bottom: 10px;
+}
+
+.form-btn,
+.remove-btn,
+.finish-btn {
+  background-color: #4a69bd;
+  color: white;
+  width: 200px;
+  font-weight: 500;
+  /* transform: translate(0%, 27vh); */
+}
+
+.card-body .btn-outlined {
+  background-color: white;
+  color: #4a69bd;
+  width: 60px;
+  border: 1px solid #4a69bd;
+  font-weight: 500;
+}
+
+.card-body .btn-outlined:disabled {
+  background-color: white;
+  color: #555;
+  width: 60px;
+  border: 1px solid #555;
+  font-weight: 500;
+}
+
+.small-card {
+  transform: translate(0%, 50%);
+  width: 35%;
+  max-height: 37vh;
+  margin: auto;
+}
+
+.empty-card {
+  transform: translate(0%, 50%);
+  width: 30%;
+  height: 25vh;
+  padding-top: 48px;
+  margin: auto;
+}
+
+.smallest-card h4 {
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.smallest-card {
+  transform: translate(0%, 50%);
+  width: 30%;
+  height: 35vh;
+  margin: auto;
+}
+
+.details-card {
+  transform: translate(0%, 30%);
+  width: 35%;
+  height: 48vh;
+  margin: auto;
+}
+
+.details-card h5 {
+  text-align: left !important;
+}
+
+.details-card i {
+  font-weight: 700;
+}
+
+.form-btn:hover,
+.remove-btn:hover,
+.finish-btn:hover {
+  background-color: white;
+  color: #4a69bd;
+  border: 1px solid #4a69bd;
+}
+
+.table-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 5px;
+  height: 66vh;
+  border: 1px solid #4a69bd;
+  border-radius: 5px;
+  padding: 10px 25px 10px 25px;
+}
+
+.last-tr {
+  background-color: #90a1d0 !important;
+}
+
+.item-table-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 5px;
+  height: 73vh;
+  border: 1px solid #4a69bd;
+  border-radius: 5px;
+  padding: 10px 25px 10px 25px;
+}
+
+.hidden {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.div-form {
+  min-height: 210px;
+}
+
+input[type='text']:focus {
+  box-shadow: 0 0.5px 0.5px rgba(0, 0, 0, 0.075) inset, 0 0 4px #4a69bd;
+}
+
+.confirm {
+  background-color: #4a69bd;
+}
+
+.list-card span {
+  float: left;
+}
+.sorting_disabled {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+@media (max-width: 666px) {
+  .list-card {
+    width: 90%;
+    min-height: 85vh;
+  }
+
+  .small-card {
+    width: 90%;
+    height: 240px;
+    min-height: 240px;
+  }
+
+  .smallest-card {
+    width: 90%;
+    height: 230px;
+    min-height: 180px;
+  }
+
+  .smallest-card h4 {
+    margin-bottom: 25px;
+  }
+
+  .details-card {
+    width: 80%;
+    height: 290px;
+    min-height: 290px;
+  }
+
+  .card-body .select_id,
+  .remove-btn,
+  .finish-btn {
+    background-color: #4a69bd;
+    color: white;
+    width: 280px;
+  }
+
+  div.dataTables_wrapper {
+    line-height: 1;
+    /* border: 1px solid #4a69bd; */
+    height: 68vh;
+  }
+
+  div.dataTables_scroll {
+    height: 68vh;
+  }
+
+  div.dataTables_scrollBody {
+    height: 55vh !important;
+  }
+
+  .empty-card {
+    width: 80%;
+    min-height: 25vh;
+  }
+}
+
+@media (max-width: 375px) {
+  header h4 {
+    font-size: 20px;
+  }
+
+  header {
+    padding-top: 10px;
+  }
+
+  div.dataTables_scrollBody {
+    height: 55vh !important;
+  }
+}
