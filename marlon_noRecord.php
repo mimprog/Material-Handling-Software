@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./assets/css/bootstrap-sweetalert.css">
     <script src="./assets/js/jquery-3.6.0.min.js"></script>
     <script src="./assets/js/sweetalert.min.js"></script>
-    <title>Material Handling Software</title>
+    <title>Material Handling Software | No Record</title>
     <script>if (performance.navigation.type == 1) {location.href='index.php';}</script>
 </head>
 <body>
