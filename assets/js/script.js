@@ -1,19 +1,19 @@
-function preventBack() {
-  window.history.forward();
-}
-setTimeout('preventBack()', 0);
-window.onunload = function () {
-  null;
-};
+// function preventBack() {
+//   window.history.forward();
+// }
+// setTimeout('preventBack()', 0);
+// window.onunload = function () {
+//   null;
+// };
 
 $(document).ready(function () {
   $('#location-btn').on('click', function (e) {
-    event.preventDefault();
+    e.preventDefault();
     $('#location-input').removeClass('invisible');
   });
 
   $('#mtag-btn').on('click', function (e) {
-    event.preventDefault();
+    e.preventDefault();
     $('#material-tag').removeClass('invisible');
   });
 
@@ -23,7 +23,7 @@ $(document).ready(function () {
   $('#location-input').keyup(function () {
     var location = $(this).val();
     $.ajax({
-      url: 'marlon_functions.php?bookingId=' + bookingId,
+      url: './controllers/marlon_controller.php?bookingId=' + bookingId,
       method: 'POST',
       data: { location: location },
       success: function (data) {
@@ -56,7 +56,7 @@ $(document).ready(function () {
   $('#material-tag').keyup(function () {
     var materialtag = $(this).val();
     $.ajax({
-      url: 'marlon_functions.php?bookingId=' + bookingId,
+      url: './controllers/marlon_controller.php?bookingId=' + bookingId,
       method: 'POST',
       data: { materialtag: materialtag },
       success: function (data) {
@@ -86,10 +86,13 @@ $(document).ready(function () {
   //---------
 
   //update status
-  $('#mdetails-btn').on('click', function () {
-    event.preventDefault();
+  $('#mdetails-btn').on('click', function (e) {
+    e.preventDefault();
     $.ajax({
-      url: 'marlon_functions.php?bookingId=' + bookingId + '&updateStatus=1',
+      url:
+        './controllers/marlon_controller.php?bookingId=' +
+        bookingId +
+        '&updateStatus=1',
       method: 'POST',
       success: function (data) {
         if (data == 0) {
@@ -97,24 +100,22 @@ $(document).ready(function () {
         }
         if (data == 1) {
           $('#mdetails-btn').prop('disabled', true);
-          swal(
-            {
-              title: 'Would you like to check another material?',
-              type: 'info',
-              closeOnConfirm: false,
-              showCancelButton: true,
-              confirmButtonText: 'YES',
-              cancelButtonText: 'NO',
-            },
-            function (isConfirm) {
-              if (isConfirm) {
-                window.location.href =
-                  'marlon_functions.php?action=nextBookingId';
-              } else {
-                window.location.href = 'marlon_reviewMaterials.php';
-              }
+          Swal.fire({
+            title: '',
+            text: 'Would you like to check another material?',
+            icon: 'question',
+            showDenyButton: true,
+            confirmButtonText: 'YES',
+            denyButtonText: 'NO',
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href =
+                './controllers/marlon_controller.php?action=nextBookingId';
+            } else if (result.isDenied) {
+              window.location.href = 'marlon_reviewMaterials.php';
             }
-          );
+          });
         }
       },
     });
@@ -122,24 +123,21 @@ $(document).ready(function () {
   //---------
 
   $('#selectId').on('click', function (e) {
-    var firstbookingId = $('#requested_material_table tbody tr')
-      .find('td:nth-child(1)')
-      .html();
-    console.log(firstbookingId);
-    window.location.href = 'marlon_newRequest.php?bookingId=' + firstbookingId;
+    window.location.href = 'index.php';
   });
 
   $('#ongoingBtn').on('click', function (e) {
-    swal(
-      {
-        title: 'Go to Production',
-        confirmButtonClass: 'btn-primary',
-        confirmButtonText: 'OK',
-      },
-      function () {
+    Swal.fire({
+      title: '',
+      text: 'Go to Production',
+      icon: 'info',
+      confirmButtonText: 'OK',
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
         window.location.href = 'marlon_inputLocation.php';
       }
-    );
+    });
   });
 
   $('#set-location').keyup(function (e) {
@@ -154,25 +152,25 @@ $(document).ready(function () {
 
   //update location and status
   $('#set-location-btn').on('click', function (e) {
-    event.preventDefault();
+    e.preventDefault();
     var setLocation = $('#set-location').val();
     $.ajax({
-      url: 'marlon_functions.php?location=' + setLocation,
+      url: './controllers/marlon_controller.php?location=' + setLocation,
       method: 'POST',
       success: function (data) {
         if (data == 'success') {
-          swal(
-            {
-              title: 'Material successfully transferred',
-              type: 'success',
-              confirmButtonClass: 'btn-primary',
-              confirmButtonText: 'OK',
-            },
-            function () {
+          Swal.fire({
+            title: '',
+            text: 'Material successfully transferred',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
               $('#set-location-btn').prop('disabled', true);
               window.location.href = 'index.php';
             }
-          );
+          });
         } else {
           swal('Something went wrong!', '', 'error');
         }
@@ -180,4 +178,9 @@ $(document).ready(function () {
     });
   });
   //---------------
+
+  var reviewTotalRecords = $('#reviewTotalRecords').html();
+  if (reviewTotalRecords == 0) {
+    $('#ongoingBtn').prop('disabled', true);
+  }
 });

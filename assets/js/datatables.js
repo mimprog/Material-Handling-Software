@@ -8,7 +8,7 @@ $(document).ready(function () {
     serverSide: true,
     bInfo: false,
     ajax: {
-      url: 'marlon_unfinishedBookingData.php', // json datasource
+      url: './controllers/marlon_unfinishedBookingData.php', // json datasource
       type: 'POST', // method  , by default get
       error: function () {
         // error handling
@@ -29,7 +29,7 @@ $(document).ready(function () {
   // ---------------------------------
 
   //review materials table
-  var dataTable = $('#review_material_table').DataTable({
+  var review_material_table = $('#review_material_table').DataTable({
     lengthChange: false,
     searching: false,
     processing: true,
@@ -37,7 +37,7 @@ $(document).ready(function () {
     serverSide: true,
     bInfo: false,
     ajax: {
-      url: 'marlon_reviewMaterialData.php', // json datasource
+      url: './controllers/marlon_reviewMaterialData.php', // json datasource
       type: 'POST', // method  , by default get
       error: function () {
         // error handling
@@ -56,5 +56,6 @@ $(document).ready(function () {
     },
     stateSave: false,
   });
+
   // ---------------------------------
 });

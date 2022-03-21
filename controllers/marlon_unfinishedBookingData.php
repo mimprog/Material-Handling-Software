@@ -1,21 +1,19 @@
 <?php
-require("includes/marlon_connection.php");
+require("../models/marlon_connection.php");
 
-$sql = "SELECT * FROM engineering_booking e LEFT JOIN system_bookingtransferrequest s ON s.bookingId=e.bookingId LEFT JOIN warehouse_inventory w ON w.inventoryId=e.inventoryId WHERE s.status = 1";
-$ongoingQuery = $connection->query($sql);
+$sql = "SELECT * FROM system_bookingtransferrequest s LEFT JOIN engineering_booking e ON s.bookingId=e.bookingId WHERE status = 0 AND bookingStatus = 0";
+$requestedBooking = $connection->query($sql);
 
 $data = [];
 $totalData = 0;
-while($result = $ongoingQuery->fetch_assoc())
+while($result = $requestedBooking->fetch_assoc())
 {
     extract($result);
+
      $data[] = [
         $bookingId,
-        $materialTag,
-        $bookingQuantity,
-        $dataOne.' '.$dataTwo.'&times;'.$dataThree.'&times;'.$dataFour,
-        $dataFive
-
+        $inventoryId,
+        $bookingQuantity
     ];
     $totalData++;
 

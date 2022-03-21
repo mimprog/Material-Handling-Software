@@ -178,8 +178,8 @@ input[type='text']:focus {
   box-shadow: 0 0.5px 0.5px rgba(0, 0, 0, 0.075) inset, 0 0 4px #4a69bd;
 }
 
-.confirm {
-  background-color: #4a69bd;
+.swal2-confirm {
+  background-color: #4a69bd !important;
 }
 
 .list-card span {
