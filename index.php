@@ -13,10 +13,8 @@
             array_push($bookingId, $result['bookingId']);
         }
         
-        $sql = "SELECT * FROM engineering_booking WHERE bookingId IN ('".implode('","',$bookingId)."') AND bookingStatus = '0'";
+        $sql = "SELECT * FROM engineering_booking WHERE bookingId IN ('".implode("','",$bookingId)."') AND bookingStatus = '0'";
         $withdrawStatus = $connection->query($sql);
-        $withdrawStatusResult = $withdrawStatus->fetch_assoc();
-
         if($withdrawStatus->num_rows != 0)
         {
             $_SESSION['status'] = 'unfinished';
@@ -24,7 +22,7 @@
         }
         else
         {
-            $sql2 = "SELECT * FROM engineering_booking WHERE bookingId IN ('".implode('","',$bookingId)."') AND bookingStatus = '1'";
+            $sql2 = "SELECT * FROM engineering_booking WHERE bookingId IN ('".implode("','",$bookingId)."') AND bookingStatus = '1'";
             $withdrawStatus2 = $connection->query($sql2);
             $withdrawStatusResult2 = $withdrawStatus2->fetch_assoc();
             if($withdrawStatus2->num_rows != 0)
