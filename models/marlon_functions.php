@@ -48,9 +48,9 @@
 
      function reviewTotalRecords(){
         require ('marlon_connection.php');
-        $sql = "SELECT * FROM engineering_booking e LEFT JOIN system_bookingtransferrequest s ON s.bookingId=e.bookingId WHERE e.bookingStatus = 0 AND s.status = 1";
+        $sql = "SELECT * FROM engineering_booking e LEFT JOIN system_bookingtransferrequest s ON s.bookingId=e.bookingId WHERE s.status = 1";
         $bookingStatus = $connection->query($sql);
-        if (!empty($bookingStatus))
+        if ($bookingStatus->num_rows > 0)
         {
             $records = $bookingStatus->num_rows;
         }
@@ -63,7 +63,7 @@
 
      function reviewTotalbookingQuantity(){
         require ('marlon_connection.php');
-        $sql = "SELECT * FROM engineering_booking e LEFT JOIN system_bookingtransferrequest s ON s.bookingId=e.bookingId WHERE e.bookingStatus = 0 AND s.status = 1";
+        $sql = "SELECT * FROM engineering_booking e LEFT JOIN system_bookingtransferrequest s ON s.bookingId=e.bookingId WHERE s.status = 1";
         $bookingStatus = $connection->query($sql);
         $total = 0;
         if (!empty($bookingStatus))
@@ -119,17 +119,41 @@
     function displayMaterial($bookingId)
     {
         require ('marlon_connection.php');
-        $sql = "SELECT * FROM engineering_booking b LEFT JOIN warehouse_inventory i ON i.inventoryId=b.inventoryId WHERE b.bookingId = '$bookingId'";
+
+        $sql = "SELECT bookingId, materialTag, inventoryId, bookingQuantity FROM engineering_booking WHERE bookingId = '$bookingId'";
         $materialDetails = $connection->query($sql);
-        if ($materialDetails->num_rows != 0)
+        if ($materialDetails->num_rows > 0)
         {
             $result = $materialDetails->fetch_assoc();
-            echo '
-            <h5>Booking Id: <i>'.$result['bookingId'].'</i></h5>
-            <h5>Material Tag: <i>'.$result['materialTag'].'</i></h5>
-            <h5>Quantity: <i>'.$result['bookingQuantity'].'</i></h5>
-            <h5>Material Specs: <i>'.$result['dataOne'].' '.$result['dataTwo'].'&times;'.$result['dataThree'].'&times;'.$result['dataFour'].'</i></h5>
-            <h5>Treatment: <i>'.$result['dataFive'].'</i></h5>';
+            $sql = "SELECT * FROM warehouse_inventory WHERE inventoryId = '".$result['inventoryId']."'";
+            $query = $connection->query($sql);
+
+            if($query->num_rows > 0)
+            {
+                $result2 = $query->fetch_assoc();
+                echo '
+                <h5>Booking Id: <i>'.$result['bookingId'].'</i></h5>
+                <h5>Material Tag: <i>'.$result['materialTag'].'</i></h5>
+                <h5>Quantity: <i>'.$result['bookingQuantity'].'</i></h5>
+                <h5>Material Specs: <i>'.$result2['dataOne'].' '.$result2['dataTwo'].'&times;'.$result2['dataThree'].'&times;'.$result2['dataFour'].'</i></h5>
+                <h5>Treatment: <i>'.$result2['dataFive'].'</i></h5>';
+            }
+            else
+            {
+                $sql = "SELECT * FROM warehouse_inventoryHistory WHERE inventoryId = '".$result['inventoryId']."'";
+                $query = $connection->query($sql);
+
+                if($query->num_rows > 0)
+                {
+                    $result3 = $query->fetch_assoc();
+                    echo '
+                    <h5>Booking Id: <i>'.$result['bookingId'].'</i></h5>
+                    <h5>Material Tag: <i>'.$result['materialTag'].'</i></h5>
+                    <h5>Quantity: <i>'.$result['bookingQuantity'].'</i></h5>
+                    <h5>Material Specs: <i>'.$result3['dataOne'].' '.$result3['dataTwo'].' &times; '.$result3['dataThree'].' &times; '.$result3['dataFour'].'</i></h5>
+                    <h5>Treatment: <i>'.$result3['dataFive'].'</i></h5>';
+                }
+            }
         }
     }
 

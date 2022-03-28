@@ -10,11 +10,13 @@ $(document).ready(function () {
   $('#location-btn').on('click', function (e) {
     e.preventDefault();
     $('#location-input').removeClass('invisible');
+    $('#location-input').focus();
   });
 
   $('#mtag-btn').on('click', function (e) {
     e.preventDefault();
     $('#material-tag').removeClass('invisible');
+    $('#material-tag').focus();
   });
 
   var bookingId = $('.bookingId_input').val();
@@ -101,8 +103,8 @@ $(document).ready(function () {
         if (data == 1) {
           $('#mdetails-btn').prop('disabled', true);
           Swal.fire({
-            title: '',
-            text: 'Would you like to check another material?',
+            title: 'Would you like to check another material?',
+            text: '',
             icon: 'question',
             showDenyButton: true,
             confirmButtonText: 'YES',
@@ -128,8 +130,8 @@ $(document).ready(function () {
 
   $('#ongoingBtn').on('click', function (e) {
     Swal.fire({
-      title: '',
-      text: 'Go to Production',
+      title: 'Go to Production',
+      text: '',
       icon: 'info',
       confirmButtonText: 'OK',
       allowOutsideClick: false,
@@ -160,8 +162,8 @@ $(document).ready(function () {
       success: function (data) {
         if (data == 'success') {
           Swal.fire({
-            title: '',
-            text: 'Material successfully transferred',
+            title: 'Material successfully transferred',
+            text: '',
             icon: 'success',
             confirmButtonText: 'OK',
             allowOutsideClick: false,
