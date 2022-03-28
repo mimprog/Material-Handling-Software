@@ -140,7 +140,7 @@
             }
             else
             {
-                $sql = "SELECT * FROM warehouse_inventoryHistory WHERE inventoryId = '".$result['inventoryId']."'";
+                $sql = "SELECT * FROM warehouse_inventoryhistory WHERE inventoryId = '".$result['inventoryId']."'";
                 $query = $connection->query($sql);
 
                 if($query->num_rows > 0)
