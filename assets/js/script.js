@@ -190,4 +190,35 @@ $(document).ready(function () {
   if (reviewTotalRecords == 0) {
     $('#ongoingBtn').prop('disabled', true);
   }
+
+  //remove booking
+  $('#review_material_table tbody').on('click', 'i', function () {
+    let bookingId = $(this).closest('tr').children('td:first').text();
+    let quantity = $(this).closest('tr').children('td:nth-child(3)').text();
+    let totalQuantity = $('#total b').html();
+    let recordCount = $('#reviewTotalRecords').html();
+    let selected = $(this).closest('tr');
+
+    $(this).addClass('disable');
+
+    $.ajax({
+      url:
+        './controllers/marlon_controller.php?bookingId=' +
+        bookingId +
+        '&action=remove',
+      method: 'GET',
+      success: function (response) {
+        if (response == 1) {
+          selected.remove();
+          $('#reviewTotalRecords').html(recordCount - 1);
+          $('#total b').html(totalQuantity - quantity);
+          $(this).removeClass('disable');
+          if ($('#reviewTotalRecords').html() == 0) {
+            $('#ongoingBtn').prop('disabled', true);
+            window.location.href = 'index.php';
+          }
+        }
+      },
+    });
+  });
 });

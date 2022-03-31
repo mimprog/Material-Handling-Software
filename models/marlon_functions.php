@@ -170,7 +170,9 @@
         $sql = "UPDATE system_bookingtransferrequest SET status = 1 WHERE bookingId = '$bookingId'";
         $changeStatusQuery = $connection->query($sql);
 
-        $sql2 = "SELECT * FROM system_bookingtransferrequest s LEFT JOIN engineering_booking e ON e.bookingId=s.bookingId WHERE e.bookingStatus = 1 AND s.status = 0";
+        $sql2 = "SELECT * FROM system_bookingtransferrequest s 
+        LEFT JOIN engineering_booking e ON e.bookingId=s.bookingId
+        WHERE e.bookingStatus = 1 AND s.status = 0";
         $bookingStatus = $connection->query($sql2);
         if ($bookingStatus->num_rows > 0)
         {
@@ -197,7 +199,9 @@
 
         updateFinishTime($implodeBookingId);
 
-        $sql = "UPDATE system_bookingtransferrequest s LEFT JOIN engineering_booking e ON e.bookingId=s.bookingId SET s.status = 2, e.location = '$locationName' WHERE s.bookingId IN ('$implodeBookingId')";
+        $sql = "UPDATE system_bookingtransferrequest s 
+        LEFT JOIN engineering_booking e ON e.bookingId=s.bookingId SET s.status = 2, e.location = '$locationName' 
+        WHERE s.bookingId IN ('$implodeBookingId')";
         $changeStatusQuery = $connection->query($sql);
         if($changeStatusQuery)
         {
@@ -206,6 +210,40 @@
         else
         {
             echo $connection->error;
+        }
+    }
+
+    function transferBookingLink()
+    {
+        require ('marlon_connection.php');
+        $sql = "SELECT status FROM system_bookingtransferrequest WHERE status = 1";
+        $query = $connection->query($sql);
+
+        $link = '';
+
+        if($query->num_rows > 0){
+            $link = "<a href='marlon_reviewMaterials.php'>TRANSFER BOOKING</a>";
+        }
+        echo $link;
+
+    }
+
+    function removeBooking($bookingId)
+    {
+        require ('marlon_connection.php');
+        updateStartTime($bookingId);
+
+        $sql = "UPDATE system_bookingtransferrequest SET startTime = '' WHERE bookingId = '$bookingId'";
+        $query = $connection->query($sql);
+        
+        $sql2 = "UPDATE system_bookingtransferrequest SET status = 0 WHERE bookingId = '$bookingId'";
+        $query2 = $connection->query($sql2);
+        
+
+        if($query && $query2){
+            echo 1;
+        } else {
+            echo 2;
         }
     }
 ?>

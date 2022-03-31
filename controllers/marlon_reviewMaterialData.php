@@ -33,13 +33,13 @@ while($result = $ongoingQuery->fetch_assoc())
             $treatment = $dataFive;
         }
     }
-
      $data[] = [
         $bookingId,
         $materialTag,
         $bookingQuantity,
         $specs,
-        $treatment
+        $treatment,
+        ''
     ];
     $totalData++;
 

@@ -23,6 +23,17 @@ body {
   outline: none;
 }
 
+.fa-times {
+  float: right;
+  color: #d9534f;
+  font-size: 27px;
+}
+
+.fa-times:hover {
+  color: #d9544fc4;
+  cursor: pointer;
+}
+
 div.dataTables_paginate {
   display: none;
 }

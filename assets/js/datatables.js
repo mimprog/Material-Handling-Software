@@ -45,7 +45,13 @@ $(document).ready(function () {
     },
 
     createdRow: function (row, data, index) {},
-    columnDefs: [{}],
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent: '<i class="fa fa-times remove" name="remove"></i>',
+      },
+    ],
     fixedColumns: false,
     deferRender: true,
     scrollY: 500,
@@ -56,6 +62,5 @@ $(document).ready(function () {
     },
     stateSave: false,
   });
-
   // ---------------------------------
 });

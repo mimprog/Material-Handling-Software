@@ -15,9 +15,11 @@
                         <th>Qty</th>
                         <th>Material Specs</th>
                         <th>Treatment</th>
+                        <th></th>
                     </thead>
                     <tbody>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -27,7 +29,7 @@
                     </tbody>
                     <tr class="last-tr">
                         <td colspan = '2'><b>TOTAL QUANTITY</b></td>
-                        <td><b><?php echo reviewTotalbookingQuantity();?></b></td>
+                        <td id="total"><b><?php echo reviewTotalbookingQuantity();?></b></td>
                     </tr>
                 </table>
                 <button class="btn form-btn select_id" id="ongoingBtn" name="ongoing-btn">OK</button>
