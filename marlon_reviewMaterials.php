@@ -11,7 +11,7 @@
                 <table id="review_material_table" class="table table-bordered table-striped" width="100%">
                     <thead>
                         <th>Booking</th>
-                        <th>Inventory Id</th>
+                        <th>Material Tag</th>
                         <th>Qty</th>
                         <th>Material Specs</th>
                         <th>Treatment</th>
