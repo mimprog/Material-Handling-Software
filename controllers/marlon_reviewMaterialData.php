@@ -36,7 +36,7 @@ while($result = $ongoingQuery->fetch_assoc())
 
      $data[] = [
         $bookingId,
-        $inventoryId,
+        $materialTag,
         $bookingQuantity,
         $specs,
         $treatment
