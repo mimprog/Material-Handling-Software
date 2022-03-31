@@ -7,6 +7,8 @@
 // };
 
 $(document).ready(function () {
+  $('#set-location').focus();
+
   $('#location-btn').on('click', function (e) {
     e.preventDefault();
     $('#location-input').removeClass('invisible');
@@ -146,15 +148,17 @@ $(document).ready(function () {
     var setLocationInput = $(this).val();
 
     if (setLocationInput.length > 0) {
-      $('#set-location-btn').prop('disabled', false);
+      $('#set-location-btn').removeClass('disable');
     } else {
-      $('#set-location-btn').prop('disabled', true);
+      $('#set-location-btn').addClass('disable');
     }
   });
 
   //update location and status
   $('#set-location-btn').on('click', function (e) {
     e.preventDefault();
+    $(this).addClass('disable');
+    $(this).html('PLEASE WAIT');
     var setLocation = $('#set-location').val();
     $.ajax({
       url: './controllers/marlon_controller.php?location=' + setLocation,
@@ -169,7 +173,8 @@ $(document).ready(function () {
             allowOutsideClick: false,
           }).then((result) => {
             if (result.isConfirmed) {
-              $('#set-location-btn').prop('disabled', true);
+              $(this).removeClass('disable');
+              $(this).html('OK');
               window.location.href = 'index.php';
             }
           });

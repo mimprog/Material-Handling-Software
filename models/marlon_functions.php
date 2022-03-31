@@ -98,6 +98,13 @@
         $updateStartTimeQuery = $connection->query($sql);
     }
 
+    function updateFinishTime($id)
+    {
+        require ('marlon_connection.php');
+        $sql = "UPDATE system_bookingtransferrequest SET finishTime = NOW() WHERE bookingId IN ('$id')";
+        $updateFinishTimeQuery = $connection->query($sql);
+    }
+
     function checkLocation($locationName)
     {
         require ('marlon_connection.php');
@@ -163,7 +170,7 @@
         $sql = "UPDATE system_bookingtransferrequest SET status = 1 WHERE bookingId = '$bookingId'";
         $changeStatusQuery = $connection->query($sql);
 
-        $sql2 = "SELECT * FROM engineering_booking e LEFT JOIN system_bookingtransferrequest s ON s.bookingId=e.bookingId WHERE e.bookingStatus = 0 AND s.status = 0";
+        $sql2 = "SELECT * FROM system_bookingtransferrequest s LEFT JOIN engineering_booking e ON e.bookingId=s.bookingId WHERE e.bookingStatus = 1 AND s.status = 0";
         $bookingStatus = $connection->query($sql2);
         if ($bookingStatus->num_rows > 0)
         {
@@ -178,15 +185,17 @@
     function updateBooking($locationName)
     {
         require ('marlon_connection.php');
+
         $sql = "SELECT bookingId FROM system_bookingtransferrequest WHERE status = 1";
         $ongoingQuery = $connection->query($sql);
-
         $bookingId = array();
         while ($result = mysqli_fetch_array($ongoingQuery))
         {
             array_push($bookingId, $result['bookingId']);
         }
         $implodeBookingId = implode("','", $bookingId);
+
+        updateFinishTime($implodeBookingId);
 
         $sql = "UPDATE system_bookingtransferrequest s LEFT JOIN engineering_booking e ON e.bookingId=s.bookingId SET s.status = 2, e.location = '$locationName' WHERE s.bookingId IN ('$implodeBookingId')";
         $changeStatusQuery = $connection->query($sql);
