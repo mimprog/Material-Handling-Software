@@ -5,6 +5,7 @@
 // window.onunload = function () {
 //   null;
 // };
+$('.loader').hide();
 
 $(document).ready(function () {
   $('#set-location').focus();
@@ -92,6 +93,8 @@ $(document).ready(function () {
   //update status
   $('#mdetails-btn').on('click', function (e) {
     e.preventDefault();
+    $('.loader').show();
+
     $.ajax({
       url:
         './controllers/marlon_controller.php?bookingId=' +
@@ -110,6 +113,7 @@ $(document).ready(function () {
             icon: 'question',
             showDenyButton: true,
             confirmButtonText: 'YES',
+            confirmButtonColor: '#4a69bd',
             denyButtonText: 'NO',
             allowOutsideClick: false,
           }).then((result) => {
@@ -121,6 +125,7 @@ $(document).ready(function () {
             }
           });
         }
+        $('.loader').fadeOut(200);
       },
     });
   });
@@ -136,6 +141,7 @@ $(document).ready(function () {
       text: '',
       icon: 'info',
       confirmButtonText: 'OK',
+      confirmButtonColor: '#4a69bd',
       allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -157,6 +163,7 @@ $(document).ready(function () {
   //update location and status
   $('#set-location-btn').on('click', function (e) {
     e.preventDefault();
+    $('.loader').show();
     $(this).addClass('disable');
     $(this).html('PLEASE WAIT');
     var setLocation = $('#set-location').val();
@@ -170,6 +177,7 @@ $(document).ready(function () {
             text: '',
             icon: 'success',
             confirmButtonText: 'OK',
+            confirmButtonColor: '#4a69bd',
             allowOutsideClick: false,
           }).then((result) => {
             if (result.isConfirmed) {
@@ -181,6 +189,7 @@ $(document).ready(function () {
         } else {
           swal('Something went wrong!', '', 'error');
         }
+        $('.loader').fadeOut(200);
       },
     });
   });
@@ -193,6 +202,7 @@ $(document).ready(function () {
 
   //remove booking
   $('#review_material_table tbody').on('click', 'i', function () {
+    $('.loader').show();
     let bookingId = $(this).closest('tr').children('td:first').text();
     let quantity = $(this).closest('tr').children('td:nth-child(3)').text();
     let totalQuantity = $('#total b').html();
@@ -218,6 +228,7 @@ $(document).ready(function () {
             window.location.href = 'index.php';
           }
         }
+        $('.loader').fadeOut(200);
       },
     });
   });

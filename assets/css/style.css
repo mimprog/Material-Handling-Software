@@ -4,6 +4,16 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+.loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('../../assets/images/Pulse-1.2s-51px.gif') center no-repeat
+    white;
+  opacity: 0.7;
+}
+
 .container-fluid {
   background-color: white;
   padding-right: 0px;
@@ -24,9 +34,8 @@ body {
 }
 
 .fa-times {
-  float: right;
   color: #d9534f;
-  font-size: 27px;
+  font-size: 25px;
 }
 
 .fa-times:hover {
@@ -62,8 +71,14 @@ header {
 }
 
 #review_material_table th {
+  white-space: nowrap !important;
   font-size: smaller;
   font-weight: 300;
+}
+
+#review_material_table td {
+  /* white-space: nowrap !important; */
+  font-size: smaller;
 }
 
 .card {
@@ -171,6 +186,13 @@ header {
 
 .last-tr {
   background-color: #90a1d0 !important;
+  position: sticky;
+  inset-block-end: 0;
+}
+
+.last-tr .td-total {
+  background-color: white !important;
+  border: none;
 }
 
 .item-table-list {
@@ -181,10 +203,6 @@ header {
   border: 1px solid #4a69bd;
   border-radius: 5px;
   padding: 10px 25px 10px 25px;
-}
-
-.hidden {
-  display: none;
 }
 
 .invisible {
@@ -199,10 +217,6 @@ input[type='text']:focus {
   box-shadow: 0 0.5px 0.5px rgba(0, 0, 0, 0.075) inset, 0 0 4px #4a69bd;
 }
 
-.swal2-confirm {
-  background-color: #4a69bd !important;
-}
-
 .list-card span {
   float: left;
 }
@@ -213,7 +227,7 @@ input[type='text']:focus {
 
 @media (max-width: 666px) {
   .list-card {
-    width: 90%;
+    width: 95%;
     min-height: 85vh;
   }
 
@@ -258,14 +272,101 @@ input[type='text']:focus {
   }
 
   div.dataTables_scrollBody {
-    height: 55vh !important;
+    height: 61vh !important;
   }
 
   .empty-card {
     width: 80%;
     min-height: 25vh;
   }
+
+  /* responsive table */
+  #review_material_table thead,
+  #review_material_table tbody,
+  #review_material_table th,
+  #review_material_table td,
+  #review_material_table tr {
+    display: block;
+    min-height: 40px;
+  }
+
+  .review_material_table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  #review_material_table thead {
+    margin-top: -41px !important;
+  }
+
+  #review_material_table tr {
+    border: 1px solid #ccc;
+  }
+
+  #review_material_table td {
+    border: none;
+    max-height: 25px;
+    position: relative;
+    text-align: end;
+  }
+
+  #review_material_table td:before {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    text-align: start;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  #review_material_table td:nth-of-type(4) {
+    padding-left: 120px;
+  }
+
+  #review_material_table td:nth-of-type(1):before {
+    content: 'Booking';
+  }
+  #review_material_table td:nth-of-type(2):before {
+    content: 'Material Tag';
+  }
+  #review_material_table td:nth-of-type(3):before {
+    content: 'Quantity';
+  }
+  #review_material_table td:nth-of-type(4):before {
+    content: 'Material Specs';
+  }
+  #review_material_table td:nth-of-type(5):before {
+    content: 'Treament';
+  }
+  #review_material_table td:nth-of-type(6):before {
+    content: 'Remove';
+    color: #d9534f;
+  }
+
+  #review_material_table .last-tr td:nth-of-type(1),
+  #review_material_table .last-tr td:nth-of-type(3),
+  #review_material_table .last-tr td:nth-of-type(4),
+  #review_material_table .last-tr td:nth-of-type(5) {
+    display: none;
+  }
+
+  #review_material_table .last-tr td:nth-of-type(2) {
+    border: none;
+  }
+
+  #review_material_table .last-tr td:nth-of-type(2):before {
+    content: 'TOTAL QUANTITY';
+  }
+
+  .fa-times {
+    font-size: 23px;
+    margin: -5px 0px -5px 0px;
+  }
 }
+/* end of responsive table */
 
 @media (max-width: 375px) {
   header h4 {
@@ -277,6 +378,6 @@ input[type='text']:focus {
   }
 
   div.dataTables_scrollBody {
-    height: 55vh !important;
+    height: 60vh !important;
   }
 }

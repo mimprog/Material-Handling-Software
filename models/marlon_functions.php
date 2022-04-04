@@ -61,7 +61,7 @@
         return $records;
     }
 
-     function reviewTotalbookingQuantity(){
+     function reviewTotalBookingQuantity(){
         require ('marlon_connection.php');
         $sql = "SELECT * FROM engineering_booking e LEFT JOIN system_bookingtransferrequest s ON s.bookingId=e.bookingId WHERE s.status = 1";
         $bookingStatus = $connection->query($sql);
@@ -142,7 +142,7 @@
                 <h5>Booking Id: <i>'.$result['bookingId'].'</i></h5>
                 <h5>Material Tag: <i>'.$result['materialTag'].'</i></h5>
                 <h5>Quantity: <i>'.$result['bookingQuantity'].'</i></h5>
-                <h5>Material Specs: <i>'.$result2['dataOne'].' '.$result2['dataTwo'].'&times;'.$result2['dataThree'].'&times;'.$result2['dataFour'].'</i></h5>
+                <h5>Material Specs: <i>'.$result2['dataOne'].' '.$result2['dataTwo'].' &times; '.$result2['dataThree'].' &times; '.$result2['dataFour'].'</i></h5>
                 <h5>Treatment: <i>'.$result2['dataFive'].'</i></h5>';
             }
             else

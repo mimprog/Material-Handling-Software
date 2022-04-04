@@ -2,6 +2,7 @@
 <html lang="en">
 <?php include "views/head/head.php";?>
 <body>
+    <div class="loader"></div>
     <div class="container-fluid">
     <?php include "views/header/header.php";?>
         <div class="card details-card text-center">
