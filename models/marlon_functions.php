@@ -246,4 +246,25 @@
             echo 2;
         }
     }
+
+    function checkBooking($id)
+    {
+        require ('marlon_connection.php');
+        $sql = "SELECT s.bookingId FROM system_bookingtransferrequest s 
+                LEFT JOIN engineering_booking e ON e.bookingId = s.bookingId 
+                WHERE s.bookingId = '$id' AND s.status = 0 AND e.bookingStatus != 1";
+        $query = $connection->query($sql);
+
+        if($query->num_rows > 0)
+        {
+            $sql = "UPDATE system_bookingtransferrequest 
+                    SET startTime = '', finishTime = '', status = 2 
+                    WHERE bookingId = '$id'";
+            $query = $connection->query($sql);
+            
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 ?>

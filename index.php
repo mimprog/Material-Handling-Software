@@ -1,5 +1,6 @@
 <?php
     require ('models/marlon_connection.php');
+    require ('models/marlon_functions.php');
     session_start();
 
     $sql = "SELECT bookingId, status FROM system_bookingtransferrequest WHERE status = 0";
@@ -10,10 +11,13 @@
         $bookingId = array();
         while($result = $requestedBooking->fetch_assoc())
         {
-            array_push($bookingId, $result['bookingId']);
+            $check = checkBooking($result['bookingId']);
+            if($check == 0){
+                array_push($bookingId, $result['bookingId']);
+            }
         }
         
-        $sql = "SELECT * FROM engineering_booking WHERE bookingId IN ('".implode("','",$bookingId)."') AND bookingStatus = '0'";
+        $sql = "SELECT bookingId FROM engineering_booking WHERE bookingId IN ('".implode("','",$bookingId)."') AND bookingStatus = '0'";
         $withdrawStatus = $connection->query($sql);
         if($withdrawStatus->num_rows > 0)
         {
@@ -22,7 +26,7 @@
         }
         else
         {
-            $sql2 = "SELECT * FROM engineering_booking WHERE bookingId IN ('".implode("','",$bookingId)."') AND bookingStatus = '1'";
+            $sql2 = "SELECT bookingId FROM engineering_booking WHERE bookingId IN ('".implode("','",$bookingId)."') AND bookingStatus = '1'";
             $withdrawStatus2 = $connection->query($sql2);
             $withdrawStatusResult2 = $withdrawStatus2->fetch_assoc();
             if($withdrawStatus2->num_rows > 0)
@@ -34,7 +38,7 @@
             {
                 echo '<!DOCTYPE html>
                 <html lang="en">';
-                include "views/head/head.php";
+                include "views/head/head2.php";
                 echo '<body>
                     <div class="container-fluid">';
                     include "views/header/header.php";
@@ -56,7 +60,7 @@
         session_destroy();
         echo '<!DOCTYPE html>
                 <html lang="en">';
-                include "views/head/head.php";
+                include "views/head/head2.php";
         echo '<body>
             <div class="container-fluid">';
             include "views/header/header.php";
