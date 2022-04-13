@@ -9,24 +9,26 @@ $('.loader').hide();
 
 $(document).ready(function () {
   $('#set-location').focus();
-
-  $('#location-btn').on('click', function (e) {
-    e.preventDefault();
-    $('#location-input').removeClass('invisible');
-    $('#location-input').focus();
-  });
-
-  $('#mtag-btn').on('click', function (e) {
-    e.preventDefault();
-    $('#material-tag').removeClass('invisible');
-    $('#material-tag').focus();
-  });
-
   var bookingId = $('.bookingId_input').val();
 
   //check location
-  $('#location-input').keyup(function () {
-    var location = $(this).val();
+  let locationInput = $('#location-input');
+  $('#location-btn').one('click', function (e) {
+    e.preventDefault();
+    locationInput.removeClass('invisible');
+    locationInput.focus();
+  });
+
+  $('#location-btn').on('click', function (e) {
+    e.preventDefault();
+
+    if (!locationInput.hasClass('invisible') && locationInput.val() != '') {
+      checkLocation();
+    }
+  });
+
+  function checkLocation() {
+    let location = $('#location-input').val();
     $.ajax({
       url: './controllers/marlon_controller.php?bookingId=' + bookingId,
       method: 'POST',
@@ -36,30 +38,45 @@ $(document).ready(function () {
           $('#location_alert').html(
             '<p class="text-danger">WRONG LOCATION</p>'
           );
-          $('#location-btn').prop('disabled', true);
         }
         if (data == 1) {
           $('#location_alert').html(
             '<p class="text-success">CORRECT LOCATION</p>'
           );
-          $('#location-btn').prop('disabled', false);
 
-          $('#location-btn').on('click', function (e) {
-            window.location.href =
-              'marlon_materialTag.php?bookingId=' + bookingId;
-          });
-        }
-        if (location.length == 0) {
-          $('#location_alert').html('');
+          window.location.href =
+            'marlon_materialTag.php?bookingId=' + bookingId;
         }
       },
     });
-  });
+    setTimeout(function () {
+      $('#location_alert').html('');
+    }, 1500);
+  }
+
   //---------
 
   //check material tag
-  $('#material-tag').keyup(function () {
-    var materialtag = $(this).val();
+  let materialTagInput = $('#material-tag');
+  $('#mtag-btn').one('click', function (e) {
+    e.preventDefault();
+    materialTagInput.removeClass('invisible');
+    materialTagInput.focus();
+  });
+
+  $('#mtag-btn').on('click', function (e) {
+    e.preventDefault();
+
+    if (
+      !materialTagInput.hasClass('invisible') &&
+      materialTagInput.val() != ''
+    ) {
+      checkMaterialTag();
+    }
+  });
+
+  function checkMaterialTag() {
+    let materialtag = $('#material-tag').val();
     $.ajax({
       url: './controllers/marlon_controller.php?bookingId=' + bookingId,
       method: 'POST',
@@ -69,25 +86,21 @@ $(document).ready(function () {
           $('#mtag_alert').html(
             '<p class="text-danger">WRONG MATERIAL TAG</p>'
           );
-          $('#mtag-btn').prop('disabled', true);
         }
         if (data == 1) {
           $('#mtag_alert').html(
             '<p class="text-success">CORRECT MATERIAL TAG</p>'
           );
-          $('#mtag-btn').prop('disabled', false);
 
-          $('#mtag-btn').on('click', function (e) {
-            window.location.href =
-              'marlon_materialDetails.php?bookingId=' + bookingId;
-          });
-        }
-        if (materialtag.length == 0) {
-          $('#mtag_alert').html('');
+          window.location.href =
+            'marlon_materialDetails.php?bookingId=' + bookingId;
         }
       },
     });
-  });
+    setTimeout(function () {
+      $('#mtag_alert').html('');
+    }, 1500);
+  }
   //---------
 
   //update status

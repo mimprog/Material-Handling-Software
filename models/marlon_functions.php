@@ -117,7 +117,7 @@
     function checkMaterialTag($tag)
     {
         require ('marlon_connection.php');
-        $sql = "SELECT * FROM engineering_booking WHERE bookingId = '".$_GET['bookingId']."' AND materialTag = '$tag'";
+        $sql = "SELECT * FROM engineering_booking WHERE bookingId = '".$_GET['bookingId']."' AND `materialTag` = '$tag'";
         $checkMaterialTagQuery = $connection->query($sql);
         if($checkMaterialTagQuery->num_rows != 0){echo 1;}
         else{echo 0;}
